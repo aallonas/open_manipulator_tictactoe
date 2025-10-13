@@ -1,0 +1,30 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/aallonas01/mca_ws/install/open_manipulator_x_gui/include/**",
+        "/home/aallonas01/mca_ws/install/dynamixel_sdk_custom_interfaces/include/**",
+        "/home/aallonas01/mca_ws/install/dynamixel_hardware_interface/include/**",
+        "/home/aallonas01/mca_ws/install/dynamixel_sdk/include/**",
+        "/home/aallonas01/mca_ws/install/dynamixel_interfaces/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/aallonas01/mca_ws/src/DynamixelSDK/ros/dynamixel_sdk/include/**",
+        "/home/aallonas01/mca_ws/src/DynamixelSDK/ros/dynamixel_sdk_examples/include/**",
+        "/home/aallonas01/mca_ws/src/dynamixel_hardware_interface/include/**",
+        "/home/aallonas01/mca_ws/src/open_manipulator/open_manipulator_x_gui/include/**",
+        "/home/aallonas01/mca_ws/src/open_manipulator/open_manipulator_x_teleop/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
