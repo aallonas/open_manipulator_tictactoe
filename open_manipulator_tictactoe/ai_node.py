@@ -116,29 +116,34 @@ def best_move(b, ai='O', human='X'):
 class TicTacToeAI(Node):
     def __init__(self):
         super().__init__('tictactoe_ai')
-        self.publisher_ = self.create_publisher(String, 'ai_move', 10)
+        self.publisher = self.create_publisher(String, 'ai_move', 10)
         self.subscription = self.create_subscription(
             String,
             'board_state',
             self.run_move,
             10)
         self.board = [' '] * 9
-        self.get_logger().info("🤖 Nœud IA prêt : écoute /board_state, publie sur /ai_move")
+        self.get_logger().info("Nœud IA prêt : écoute /board_state, publie sur /ai_move")
 
 
     def run_move(self,msg):
-        # Le message arrive sous forme "X,O, , ,O, , , ,X"
-        self.board = msg.data.split(',')
+        # Le message arrive sous forme "X,O, , ,O, , , ,X,HUMAN"
+        data = msg.data.split(',')
+        self.board = data[:9]          # les 9 premières valeurs pour le plateau
+        self.current_player = data[9]  # la dernière valeur = le tour de jeu
         self.get_logger().info('Received board state: "%s"' % msg.data)
-        
-        nextmove = best_move(self.board, ai=AI, human=HUMAN)
-        if nextmove is not None:
-            msg_out = String()
-            msg_out.data = str(nextmove)
-            self.publisher_.publish(msg_out)
-            self.get_logger().info('Publishing move: "%s"' % msg_out.data)
-        else:
-            self.get_logger().info('No moves available, game over.')
+        if self.current_player == "HUMAN":
+            self.get_logger().info('Not AI turn, skipping move.')
+            return
+        if self.current_player == "AI":
+            nextmove = best_move(self.board, ai=AI, human=HUMAN)
+            if nextmove is not None:
+                msg_out = String()
+                msg_out.data = str(nextmove)
+                self.publisher.publish(msg_out)
+                self.get_logger().info('Publishing move: "%s"' % msg_out.data)
+            else:
+                self.get_logger().info('No moves available, game over.')
 
         
     
